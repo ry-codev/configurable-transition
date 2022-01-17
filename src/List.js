@@ -9,64 +9,33 @@ const Slide = styled.div`
         ${({
             current,
             keyframe,
-            direction,
-            iterationCount,
             duration,
-            timingFunction,
         }) => keyframe && css`
           z-index: ${current ? 100 : 10};
           animation-name: ${keyframe};
-          animation-direction: ${direction};
-          animation-iteration-count: ${iterationCount};
+          animation-direction: normal;
+          animation-iteration-count: 1;
           animation-duration: ${duration};
-          animation-timing-function: ${timingFunction};
+          animation-timing-function: ease-in;
         `}   
     `
+
+const msToSecs = ms => (ms/1000) % 60 + 's'
 
 const List = ({
     keyframeIn,
     keyframeOut,
     slides,
     styles,
-    animation: {
-        delay: animationDelay,
-        direction: animationDirection,
-        iterationCount: animationIterationCount,
-        duration: animationDuration,
-        timingFunction: animationTimingFunction
-    },
     transition: {
-        transitionInTime,
-        displayTime = 4000,
-        transitionOutTime
+        transitionInOutTime = 500,
+        displayTime = 4000
     }
 }) => {
     const [initial, setInitial] = useState(true)
     const [currentPage, setCurrentPage] = useState(0)
     const transitionIn = keyframes`${keyframeIn}`
     const transitionOut = keyframes`${keyframeOut}`
-
-    // useInterval(() => {
-    //     switch(transitionPhase) {
-    //         case 0:
-    //             setTransitionPhase(1)
-    //             setKeyframe(transitionIn);
-    //             break;
-    //         case 1:
-    //             setKeyframe(null)
-    //             setTransitionPhase(2)
-    //             break;
-    //         case 3:
-    //             setKeyframe(null)
-    //             setTransitionPhase(0)
-    //             break;
-    //         default:
-    //             setKeyframe(transitionOut);
-    //             setTransitionPhase(3)
-    //             break;
-    //     }
-    //     setTransitionTime(transitionTimes[transitionPhase])
-    // }, transitionTime)
 
     const getSlideTransition = pageIndex => {
         if (initial) return null
@@ -98,7 +67,7 @@ const List = ({
             setCurrentPage(1)
         }, displayTime)
     }, [displayTime])
-
+    
     return <div className={"list"} style={styles}>
         <div className={`page`}>
             {
@@ -109,11 +78,7 @@ const List = ({
                     initial={initial}
                     current={index === currentPage}
                     keyframe={getSlideTransition(index)}
-                    direction={animationDirection}
-                    iterationCount={animationIterationCount}
-                    duration={animationDuration}
-                    timingFunction={animationTimingFunction}
-                    delay={animationDelay}
+                    duration={msToSecs(transitionInOutTime)}
                 >
                     <img src={slideImg} alt={""} />
                 </Slide>)
