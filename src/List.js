@@ -34,6 +34,7 @@ const List = ({
 }) => {
     const [initial, setInitial] = useState(true)
     const [currentPage, setCurrentPage] = useState(0)
+    const [transitionTime, setTransitionTime] = useState(displayTime + transitionInOutTime)
     const transitionIn = keyframes`${keyframeIn}`
     const transitionOut = keyframes`${keyframeOut}`
 
@@ -56,18 +57,22 @@ const List = ({
             if (!initial) {
                 setCurrentPage(nextPage)
             }
-        }, displayTime)
+        }, transitionTime)
 
         return () => clearInterval(timerId)
-    }, [currentPage, slides, initial, displayTime])
+    }, [currentPage, slides, initial, transitionTime])
 
     useEffect(() => {
         setTimeout(() => {
             setInitial(false)
             setCurrentPage(1)
-        }, displayTime)
-    }, [displayTime])
-    
+        }, transitionTime)
+    }, [transitionTime])
+
+    useEffect(() => {
+        setTransitionTime(displayTime + transitionInOutTime)
+    }, [displayTime, transitionInOutTime])
+
     return <div className={"list"} style={styles}>
         <div className={`page`}>
             {
