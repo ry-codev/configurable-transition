@@ -2,43 +2,25 @@ import React, { useEffect, useState } from "react"
 import styled, { css, keyframes } from "styled-components"
 import "./list.css"
 
-// const useInterval = (callback, delay) => {
-//     const savedCallback = useRef();
-//     // Remember the latest callback.
-//     React.useEffect(() => {
-//         savedCallback.current = callback;
-//     }, [callback]);
-//
-//     // Set up the interval.
-//     React.useEffect(() => {
-//         function tick() {
-//             savedCallback.current();
-//         }
-//         if (delay !== null) {
-//             let id = setInterval(tick, delay);
-//             return () => clearInterval(id);
-//         }
-//     }, [delay]);
-// }
-
 const Slide = styled.div`
         position: absolute;
-        height: 100%;        
+        height: 100%;
+        z-index: ${props => props.initial & props.index === 0 ? 100 : "unset" };
         ${({
-            initial, index,
+            current,
             keyframe,
             direction,
             iterationCount,
             duration,
             timingFunction,
-        }) => keyframe && css`       
-            z-index: ${initial && index === 0 ? 100 : 10};    
-            animation-name: ${keyframe};
-            animation-direction: ${direction};
-            animation-iteration-count: ${iterationCount};
-            animation-duration: ${duration};
-            animation-timing-function: ${timingFunction};
-        `}
+        }) => keyframe && css`
+          z-index: ${current ? 100 : 10};
+          animation-name: ${keyframe};
+          animation-direction: ${direction};
+          animation-iteration-count: ${iterationCount};
+          animation-duration: ${duration};
+          animation-timing-function: ${timingFunction};
+        `}   
     `
 
 const List = ({
@@ -55,7 +37,7 @@ const List = ({
     },
     transition: {
         transitionInTime,
-        displayTime,
+        displayTime = 4000,
         transitionOutTime
     }
 }) => {
@@ -87,14 +69,13 @@ const List = ({
     // }, transitionTime)
 
     const getSlideTransition = pageIndex => {
-        if ((pageIndex === currentPage - 1) || (pageIndex === slides.length - 1 && currentPage === 0)) {
-            // console.log('in ', pageIndex)
+        if (initial) return null
+
+        if ((pageIndex === currentPage - 1) || (currentPage === 0 && pageIndex === slides.length - 1)) {
             return transitionOut
         } else if (pageIndex === currentPage) {
-            // console.log('out ', pageIndex)
             return transitionIn
         } else {
-            // console.log('none ', pageIndex)
             return null;
         }
     }
@@ -103,15 +84,20 @@ const List = ({
         const nextPage = (currentPage + 1) % slides.length
 
         const timerId = setInterval(() => {
-            if (initial) {
-                setInitial(false)
+            if (!initial) {
+                setCurrentPage(nextPage)
             }
-
-            setCurrentPage(nextPage)
-        }, 4000)
+        }, displayTime)
 
         return () => clearInterval(timerId)
-    }, [currentPage, slides, initial])
+    }, [currentPage, slides, initial, displayTime])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setInitial(false)
+            setCurrentPage(1)
+        }, displayTime)
+    }, [displayTime])
 
     return <div className={"list"} style={styles}>
         <div className={`page`}>

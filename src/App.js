@@ -34,7 +34,7 @@ const App = () => {
             slides={slide2Images}
             styles={{ width: 450, height: 300 }}
             animation={{ delay: "2s", direction: "normal", duration: "1s", iterationCount: 1, timingFunction: "ease-in" }}
-            transition={{ transitionInTime: 500, displayTime: 2000, transitionOutTime: 500 }}
+            transition={{ transitionInTime: 500, displayTime: 4000, transitionOutTime: 500 }}
         />
     </div>
   );
