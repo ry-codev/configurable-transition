@@ -1,41 +1,183 @@
 import './App.css';
-import List from "./List";
+import Pagination from "./Pagination";
 
 const App = () => {
-    const slide1Images = [
-        "https://media.istockphoto.com/photos/sunrise-on-a-lake-picture-id1043560968",
-        "https://media.istockphoto.com/photos/moraine-lake-in-banff-national-park-canada-picture-id500177214",
-        "https://media.istockphoto.com/photos/lupins-of-lake-tekapo-picture-id607280514"
-    ]
-    const slide2Images = [
-        "https://media.istockphoto.com/photos/farmer-holds-in-hands-wooden-box-with-vegetables-produce-in-garden-picture-id1162332668",
-        "https://media.istockphoto.com/photos/farmer-woman-holding-wooden-box-full-of-fresh-raw-vegetables-picture-id1222581489",
-        "https://media.istockphoto.com/photos/young-farmer-with-crate-full-of-vegetables-picture-id901653798"
-    ]
+    const imagePaginationProps = {
+        CssProps: {
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            zIndex: 15
+        },
+        pages: [
+            {
+                Type: "Image",
+                CssProps: {},
+                Transition: {
+                    DisplayTime: 4000,
+                    TransitionInTime: 1000,
+                    TransitionOutTime: 1000
+                },
+                InitialStyles: {
+                    left: "-100%",
+                    opacity: 0
+                },
+                DisplayStyles: {
+                    left: 0
+                },
+                Delay: 0,
+                TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 100% { left: 0; opacity: 1; }",
+                TransitionOutKeyFrame: "0% { left: 0; opacity: 1; } 100% { left: -100%; opacity: 0; }",
+                Url: "https://media.istockphoto.com/photos/farmer-holds-in-hands-wooden-box-with-vegetables-produce-in-garden-picture-id1162332668"
+            },
+            {
+                Type: "Image",
+                CssProps: {},
+                Transition: {
+                    DisplayTime: 4000,
+                    TransitionInTime: 1000,
+                    TransitionOutTime: 1000
+                },
+                InitialStyles: {
+                    left: "-100%",
+                    opacity: 0
+                },
+                DisplayStyles: {
+                    left: 0
+                },
+                Delay: 0,
+                TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 100% { left: 0; opacity: 1; }",
+                TransitionOutKeyFrame: "0% { left: 0; opacity: 1; } 100% { left: -100%; opacity: 0; }",
+                Url: "https://media.istockphoto.com/photos/farmer-woman-holding-wooden-box-full-of-fresh-raw-vegetables-picture-id1222581489"
+            },
+            {
+                Type: "Image",
+                CssProps: {},
+                Transition: {
+                    DisplayTime: 4000,
+                    TransitionInTime: 1000,
+                    TransitionOutTime: 1000
+                },
+                InitialStyles: {
+                    left: "-100%",
+                    opacity: 0
+                },
+                DisplayStyles: {
+                    left: 0
+                },
+                Delay: 0,
+                TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 100% { left: 0; opacity: 1; }",
+                TransitionOutKeyFrame: "0% { left: 0; opacity: 1; } 100% { left: -100%; opacity: 0; }",
+                Url: "https://media.istockphoto.com/photos/young-farmer-with-crate-full-of-vegetables-picture-id901653798"
+            }
+        ]
+    }
+    const textPaginationProps = {
+        CssProps: {
+            position: "absolute",
+            left: 0,
+            top: "400px",
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            zIndex: 10
+        },
+        pages: [
+            {
+                Type: "Text",
+                Text: "Next Departure 09:00AM",
+                CssProps: {
+                    fontSize: "50px",
+                    color: "#ff0000",
+                    fontWeight: "bold"
+                },
+                Transition: {
+                    DisplayTime: 10000,
+                    TransitionInTime: 4000,
+                    TransitionOutTime: 1000
+                },
+                InitialStyles: {
+                    left: "-100%",
+                    top: 0
+                },
+                DisplayStyles: {
+                    left: "1100px",
+                    top: 0,
+                    opacity: 1
+                },
+                Delay: 2000,
+                TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 50% { opacity: 0; } 90% { opacity: 0; } 100% { left: 1100px; opacity: 1; }",
+                TransitionOutKeyFrame: "0% { left: 1100px; opacity: 1; } 10% { opacity: .1; } 100% { left: -100%; opacity: 0; }",
+            }
+        ]
+    }
+    const imagePagination2Props= {
+        CssProps: {
+            position: "absolute",
+            right: 0,
+            top: 0,
+            width: "600px",
+            height: "500px",
+            overflow: "hidden",
+            zIndex: 10
+        },
+        pages: [
+            {
+                Type: "Image",
+                CssProps: {
+                    width: "600px",
+                    overflow: "hidden"
+                },
+                Transition: {
+                    DisplayTime: 3000,
+                    TransitionInTime: 1000,
+                    TransitionOutTime: 2000
+                },
+                InitialStyles: {
+                    opacity: 0
+                },
+                DisplayStyles: {
+                    opacity: 1
+                },
+                Delay: 1000,
+                TransitionInKeyFrame: "0% { opacity: 0; } 100% { opacity: 1; }",
+                TransitionOutKeyFrame: "0% { width: 600px; } 100% { width: 0; }",
+                Url: "https://media.istockphoto.com/photos/farmer-holds-in-hands-wooden-box-with-vegetables-produce-in-garden-picture-id1162332668"
+            },
+            {
+                Type: "Image",
+                CssProps: {
+                    width: "600px",
+                    overflow: "hidden"
+                },
+                Transition: {
+                    DisplayTime: 3000,
+                    TransitionInTime: 1000,
+                    TransitionOutTime: 2000
+                },
+                InitialStyles: {
+                    opacity: 0
+                },
+                DisplayStyles: {
+                    opacity: 1
+                },
+                Delay: 1000,
+                TransitionInKeyFrame: "0% { opacity: 0; } 100% { opacity: 1; }",
+                TransitionOutKeyFrame: "0% { width: 600px; } 100% { width: 0; }",
+                Url: "https://media.istockphoto.com/photos/farmer-woman-holding-wooden-box-full-of-fresh-raw-vegetables-picture-id1222581489"
+            }
+        ]
+    }
 
-    const fadeIn = "0% { opacity: 0; } 100% { opacity: 1; }"
-    const fadeOut = "0% { opacity: 1; } 100% { opacity: 0; }"
-    const slideIn = "0% { left: 100%; } 100% { left: 0; }"
-    const slideOut = "0% { left: 0; } 100% { left: -100%; }"
-
-  return (
+    return (
     <div className="App">
-        <List
-            keyframeIn={fadeIn}
-            keyframeOut={fadeOut}
-            slides={slide1Images}
-            styles={{ width: 450, height: 300 }}
-            transition={{ transitionInOutTime: 500, displayTime: 4000 }}
-        />
-        <List
-            keyframeIn={slideIn}
-            keyframeOut={slideOut}
-            slides={slide2Images}
-            styles={{ width: 450, height: 300 }}
-            transition={{ transitionInOutTime: 500, displayTime: 4000 }}
-        />
-    </div>
-  );
+        <Pagination {...imagePaginationProps} />
+        {/*<Pagination {...textPaginationProps} />*/}
+        {/*<Pagination {...imagePagination2Props} />*/}
+    </div>);
 }
 
 export default App;
