@@ -21,14 +21,7 @@ const App = () => {
                     TransitionInTime: 1000,
                     TransitionOutTime: 1000
                 },
-                InitialStyles: {
-                    left: "-100%",
-                    opacity: 0
-                },
-                DisplayStyles: {
-                    left: 0
-                },
-                Delay: 0,
+                Delay: 3000,
                 TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 100% { left: 0; opacity: 1; }",
                 TransitionOutKeyFrame: "0% { left: 0; opacity: 1; } 100% { left: -100%; opacity: 0; }",
                 Url: "https://media.istockphoto.com/photos/farmer-holds-in-hands-wooden-box-with-vegetables-produce-in-garden-picture-id1162332668"
@@ -40,13 +33,6 @@ const App = () => {
                     DisplayTime: 4000,
                     TransitionInTime: 1000,
                     TransitionOutTime: 1000
-                },
-                InitialStyles: {
-                    left: "-100%",
-                    opacity: 0
-                },
-                DisplayStyles: {
-                    left: 0
                 },
                 Delay: 0,
                 TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 100% { left: 0; opacity: 1; }",
@@ -61,14 +47,7 @@ const App = () => {
                     TransitionInTime: 1000,
                     TransitionOutTime: 1000
                 },
-                InitialStyles: {
-                    left: "-100%",
-                    opacity: 0
-                },
-                DisplayStyles: {
-                    left: 0
-                },
-                Delay: 0,
+                Delay: 3000,
                 TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 100% { left: 0; opacity: 1; }",
                 TransitionOutKeyFrame: "0% { left: 0; opacity: 1; } 100% { left: -100%; opacity: 0; }",
                 Url: "https://media.istockphoto.com/photos/young-farmer-with-crate-full-of-vegetables-picture-id901653798"
@@ -95,22 +74,13 @@ const App = () => {
                     fontWeight: "bold"
                 },
                 Transition: {
-                    DisplayTime: 10000,
+                    DisplayTime: 5000,
                     TransitionInTime: 4000,
-                    TransitionOutTime: 1000
-                },
-                InitialStyles: {
-                    left: "-100%",
-                    top: 0
-                },
-                DisplayStyles: {
-                    left: "1100px",
-                    top: 0,
-                    opacity: 1
+                    TransitionOutTime: 4000
                 },
                 Delay: 2000,
-                TransitionInKeyFrame: "0% { left: -100%; opacity: 0; } 50% { opacity: 0; } 90% { opacity: 0; } 100% { left: 1100px; opacity: 1; }",
-                TransitionOutKeyFrame: "0% { left: 1100px; opacity: 1; } 10% { opacity: .1; } 100% { left: -100%; opacity: 0; }",
+                TransitionInKeyFrame: "0% { left: 0; opacity: 1; } 100% { left: 1100px; opacity: 1; }",
+                TransitionOutKeyFrame: "0% { left: 1100px; opacity: 1; } 100% { left: -100%; opacity: 0; }",
             }
         ]
     }
@@ -136,15 +106,9 @@ const App = () => {
                     TransitionInTime: 1000,
                     TransitionOutTime: 2000
                 },
-                InitialStyles: {
-                    opacity: 0
-                },
-                DisplayStyles: {
-                    opacity: 1
-                },
-                Delay: 1000,
-                TransitionInKeyFrame: "0% { opacity: 0; } 100% { opacity: 1; }",
-                TransitionOutKeyFrame: "0% { width: 600px; } 100% { width: 0; }",
+                Delay: 5000,
+                TransitionInKeyFrame: "0% { opacity: 0; width: 600px; } 100% { opacity: 1; width: 600px; }",
+                TransitionOutKeyFrame: "0% { opacity: 1; width: 600px; } 100% { opacity: 0; width: 0; }",
                 Url: "https://media.istockphoto.com/photos/farmer-holds-in-hands-wooden-box-with-vegetables-produce-in-garden-picture-id1162332668"
             },
             {
@@ -158,15 +122,9 @@ const App = () => {
                     TransitionInTime: 1000,
                     TransitionOutTime: 2000
                 },
-                InitialStyles: {
-                    opacity: 0
-                },
-                DisplayStyles: {
-                    opacity: 1
-                },
-                Delay: 1000,
-                TransitionInKeyFrame: "0% { opacity: 0; } 100% { opacity: 1; }",
-                TransitionOutKeyFrame: "0% { width: 600px; } 100% { width: 0; }",
+                Delay: 3000,
+                TransitionInKeyFrame: "0% { opacity: 0; width: 600px; } 100% { opacity: 1; width: 600px; }",
+                TransitionOutKeyFrame: "0% { opacity: 1;  width: 600px; } 100% { opacity: 0; width: 0; }",
                 Url: "https://media.istockphoto.com/photos/farmer-woman-holding-wooden-box-full-of-fresh-raw-vegetables-picture-id1222581489"
             }
         ]
@@ -175,8 +133,8 @@ const App = () => {
     return (
     <div className="App">
         <Pagination {...imagePaginationProps} />
-        {/*<Pagination {...textPaginationProps} />*/}
-        {/*<Pagination {...imagePagination2Props} />*/}
+        <Pagination {...textPaginationProps} />
+        <Pagination {...imagePagination2Props} />
     </div>);
 }
 

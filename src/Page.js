@@ -9,22 +9,11 @@ const InlineStyles = css`
 	`}
 `
 
-const InitialStyles = css`
-	${({ initialStyles }) => initialStyles && css`
-		${initialStyles}
-	`}
-`
-
-const DisplayStyles = css`
-	${({ displayStyles }) => displayStyles && css`
-		${displayStyles}
-	`}
-`
-
 const TransitionStyles = css`
+	transition: all 1s ease;
 	${({            
 		keyframe,
-		duration           	
+		duration
 	}) => keyframe && css`
 		z-index: 100;
 		animation-name: ${keyframe};
@@ -32,23 +21,22 @@ const TransitionStyles = css`
 		animation-iteration-count: 1;
 		animation-duration: ${duration};
 		animation-timing-function: ease;
+		animation-fill-mode: both;
 	`}
 `
 
 const Slide = styled.div`
         position: absolute;
-        height: 100%;
-		transition: opacity 1s ease;
+        height: 100%;		
 		${({
-			isCurrent
-		   }) => isCurrent ? css`
+			isCurrent,
+			transitionPhase
+		   }) => isCurrent && transitionPhase !== 0 ? css`
 			opacity: 1;
 		` : css`
 			opacity: 0;
 		`}
-        ${InlineStyles}    
-        ${InitialStyles}
-		${DisplayStyles}
+        ${InlineStyles}
         ${TransitionStyles}
     `
 
@@ -60,8 +48,6 @@ const Page = ({
 		TransitionInTime,
 		TransitionOutTime
 	},
-	InitialStyles,
-	DisplayStyles,
 	TransitionInKeyFrame,
 	TransitionOutKeyFrame,
 	transitionPhase,
@@ -72,24 +58,24 @@ const Page = ({
 
     useEffect(() => {
     	if (isCurrent) {
-    		if (transitionPhase === 1) {
-				console.log(1)
+			console.log(transitionPhase)
+			if (transitionPhase === 0) {
+				console.log('delay')
+				setTransition({
+					keyframe: null,
+					duration: null
+				})
+			} else if (transitionPhase === 1) {
+				console.log('sliding in + display')
 				setTransition({
 					keyframe: keyframes`${TransitionInKeyFrame}`,
 					duration: TransitionInTime
 				})
-    		} else if (transitionPhase === 3) {
-				console.log(3)
-    			setTransition({
+    		} else {
+				console.log('sliding out')
+				setTransition({
 					keyframe: keyframes`${TransitionOutKeyFrame}`,
 					duration: TransitionOutTime
-				})
-    		} else {
-				if (transitionPhase === 0) console.log(0)
-				if (transitionPhase === 2) console.log(2)
-				setTransition({
-					keyframe: null,
-					duration: null
 				})
     		}
     	}
@@ -100,9 +86,8 @@ const Page = ({
 		keyframe={transition?.keyframe}
 		duration={transition?.duration && msToSecs(transition?.duration)}
 		inlineStyles={CssProps}
-		initialStyles={transitionPhase === 0 && InitialStyles}
-		displayStyles={isCurrent && transitionPhase === 2 && DisplayStyles}
 		isCurrent={isCurrent}
+		transitionPhase={transitionPhase}
 	>
 		{ Type === "Image" ? <img src={Url} alt="" width={600} /> : <h3>{Text}</h3> }
 	</Slide>

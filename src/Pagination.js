@@ -22,10 +22,9 @@ export default class Pagination extends Component {
         const { pages } = this.props
         const { currentPage, transitionPhase } = this.state
         const transitionTimes = {
-            0: 0,
-            1: pages[currentPage]?.Transition?.TransitionInTime,
-            2: pages[currentPage]?.Transition?.DisplayTime,
-            3: pages[currentPage]?.Transition?.TransitionOutTime
+            0: pages[currentPage]?.Delay,
+            1: pages[currentPage]?.Transition?.TransitionInTime + pages[currentPage]?.Transition?.DisplayTime,
+            2: pages[currentPage]?.Transition?.TransitionOutTime
         }        
         const transitionTime = transitionTimes[transitionPhase]
 
